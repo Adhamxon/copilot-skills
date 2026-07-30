@@ -1,143 +1,205 @@
-# Agents Reference
+# Agents Reference — 13 Specialized Copilot Agents
 
-This document describes each agent in the collection, including its purpose, usage, and configuration.
+This document describes all **13 Copilot agents** in this collection. Each agent is a domain expert powered by the corresponding skills from the OpenCode skill library.
 
-## What Are Copilot Agents?
+## How Copilot Agents Work
 
-GitHub Copilot agents are specialized personas that focus on specific tasks. Defined in `.github/agents/*.agent.md` files, they provide Copilot with a role, expertise, and behavior guidelines for different development activities.
+GitHub Copilot agents are specialized personas defined in `.github/agents/*.agent.md` files. They provide Copilot with a specific role, expertise, and behavior guidelines. Agents are accessible in Copilot Chat through:
 
-Agents are accessible in Copilot Chat through:
 - The agent dropdown selector in the chat interface
-- The `@agent-name` mention syntax
+- The `@agent-name` mention syntax (e.g., `@architecture-design`)
 
 ---
 
-## Code Reviewer Agent
+## 1. Architecture & Design Agent
 
-**File:** `.github/agents/code-reviewer.agent.md`
+**File:** `.github/agents/architecture-design.agent.md`
 
-### Purpose
-Reviews code changes for quality, security, and adherence to best practices. Provides structured, actionable feedback.
+**Expertise:** Clean Architecture, DDD, system design, refactoring, team topologies, UI/UX, microinteractions, web typography
 
-### Expertise Areas
-- Code correctness and logic validation
-- Security vulnerability identification
-- Performance optimization opportunities
-- Maintainability and code organization
-- Style and convention compliance
+**Use cases:** Designing system architecture, reviewing module boundaries, applying SOLID principles, choosing patterns, structuring projects
 
-### When to Use
+**Example prompts:**
+```
+@architecture-design Design a microservices architecture for an e-commerce platform
+@architecture-design Review this module for Clean Architecture compliance
+@architecture-design What's the best pattern for handling cross-cutting concerns?
+```
 
-| Scenario | Example Prompt |
-|----------|---------------|
-| Pull request review | `@code-reviewer Review the changes in this PR` |
-| Code quality check | `@code-reviewer Analyze this function for issues` |
-| Security scan | `@code-reviewer Check this code for security vulnerabilities` |
-| Style audit | `@code-reviewer Does this follow our coding conventions?` |
+## 2. Frontend Development Agent
 
-### Output Format
-The agent categorizes each finding by:
-- **Category**: correctness, security, performance, maintainability, style
-- **Severity**: blocker, warning, suggestion
-- **Location**: file path and line numbers
-- **Description**: clear explanation of the issue
-- **Suggestion**: concrete recommendation with code examples
+**File:** `.github/agents/frontend-development.agent.md`
 
-### Best Practices
-- Provide context about what the code is supposed to do
-- Mention any specific concerns you want the reviewer to focus on
-- Review the agent's output critically — it's a tool, not the final authority
+**Expertise:** TypeScript, Three.js, Tailwind CSS, SvelteKit, tRPC, TanStack Query, Zustand, Vercel AI SDK, Zod, Vitest
 
----
+**Use cases:** Building UI components, implementing layouts, managing state, creating 3D visualizations, type-safe API clients
 
-## TDD Developer Agent
+**Example prompts:**
+```
+@frontend-development Build a responsive dashboard layout with Tailwind
+@frontend-development Create a Three.js 3D product viewer
+@frontend-development Set up TanStack Query with optimistic updates
+```
 
-**File:** `.github/agents/tdd-developer.agent.md`
+## 3. Backend & API Agent
 
-### Purpose
-Guides development using Test-Driven Development methodology. Follows the Red-Green-Refactor cycle.
+**File:** `.github/agents/backend-api-development.agent.md`
 
-### Expertise Areas
-- Writing tests before production code
-- Unit, integration, and E2E testing strategies
-- Test isolation and independence
-- Mocking and dependency injection
-- Refactoring with confidence
+**Expertise:** API design, Supabase, message queues, vector databases, Terraform, REST/GraphQL/gRPC patterns
 
-### When to Use
+**Use cases:** API contract design, database schema design, message broker integration, infrastructure as code
 
-| Scenario | Example Prompt |
-|----------|---------------|
-| Start a new feature | `@tdd-developer Help me write the first test for user authentication` |
-| Add error handling | `@tdd-developer Write tests for error scenarios in the payment service` |
-| Refactor safely | `@tdd-developer I need to refactor this class. Help me write tests first` |
-| Bug fix | `@tdd-developer Help me write a test that reproduces this bug` |
+**Example prompts:**
+```
+@backend-api-development Design a RESTful API for user management
+@backend-api-development Set up a Supabase project with Row Level Security
+@backend-api-development Design a message queue architecture for order processing
+```
 
-### The TDD Cycle
+## 4. Mobile & iOS Agent
 
-1. **Red** — Write a failing test
-2. **Green** — Write the minimal code to pass
-3. **Refactor** — Improve code while keeping tests green
+**File:** `.github/agents/mobile-ios-development.agent.md`
 
-### Testing Pyramid Guidance
-- **Unit tests**: thousands, milliseconds each
-- **Integration tests**: hundreds, seconds each
-- **E2E tests**: dozens, minutes each
+**Expertise:** Swift, SwiftUI, iOS patterns, concurrency (async/await), performance optimization, debugging, App Store
 
-### Best Practices
-- Start with the simplest test case
-- Add edge cases incrementally
-- Keep tests focused on one behavior
-- Never write production code without a failing test first
+**Use cases:** iOS app development, SwiftUI UI design, concurrency management, performance profiling
 
----
+**Example prompts:**
+@mobile-ios-development Build a SwiftUI form with validation
+@mobile-ios-development Debug this iOS concurrency issue
+@mobile-ios-development Optimize SwiftUI list performance
 
-## Security Auditor Agent
+## 5. Project Management & Product Agent
 
-**File:** `.github/agents/security-auditor.agent.md`
+**File:** `.github/agents/project-management-product.agent.md`
 
-### Purpose
-Audits code for security vulnerabilities, compliance issues, and security best practices.
+**Expertise:** OKRs, PRDs, user stories, sprint planning, GTM strategy, market sizing, pricing, competitive analysis
 
-### Expertise Areas
-- OWASP Top 10 vulnerabilities
-- Injection attacks (SQL, NoSQL, command, XSS, template)
-- Authentication and authorization flaws
-- Cryptographic failures
-- Security misconfiguration
-- Business logic vulnerabilities
-- Compliance (GDPR, SOC 2, PCI-DSS, HIPAA)
+**Use cases:** Writing PRDs, planning sprints, creating roadmaps, analyzing markets, defining strategy
 
-### When to Use
+**Example prompts:**
+```
+@project-management-product Write a PRD for a new feature
+@project-management-product Plan the next sprint with capacity estimation
+@project-management-product Create a GTM strategy for a product launch
+```
 
-| Scenario | Example Prompt |
-|----------|---------------|
-| Full security audit | `@security-auditor Audit this entire codebase for vulnerabilities` |
-| Endpoint review | `@security-auditor Check this API endpoint for security issues` |
-| Dependency audit | `@security-auditor Review our dependency usage for known vulnerabilities` |
-| Compliance check | `@security-auditor Does this code comply with GDPR requirements?` |
+## 6. DevOps & Cloud Agent
 
-### Vulnerability Classification
+**File:** `.github/agents/devops-cloud.agent.md`
 
-| Severity | Description | Action Required |
-|----------|-------------|----------------|
-| Critical | Immediate risk of data breach or system compromise | Fix immediately |
-| High | Significant security risk with moderate exploitation difficulty | Fix within sprint |
-| Medium | Moderate risk, often requires specific conditions | Schedule for next iteration |
-| Low | Minor issues, defense-in-depth improvements | Add to backlog |
-| Info | Observations and recommendations | Document for awareness |
+**Expertise:** GCP (all services), Docker, Kubernetes, CI/CD, BigQuery, Cloud Run, monitoring, IaC
 
-### Audit Output
-Each finding includes:
-- CWE identifier for industry-standard classification
-- Severity rating
-- Precise location (file and line)
-- Impact description
-- Remediation steps with code examples
-- Reference links for further reading
+**Use cases:** Cloud infrastructure setup, container orchestration, CI/CD pipelines, cost optimization
 
-### Best Practices
-- Run the security auditor before each release
-- Include in CI/CD pipeline for automated scanning
-- Combine with SAST/DAST tools for comprehensive coverage
-- Treat all critical and high findings as release blockers
+**Example prompts:**
+```
+@devops-cloud Set up a GKE cluster with auto-scaling
+@devops-cloud Design a CI/CD pipeline with GitHub Actions
+@devops-cloud Optimize Cloud Run costs for a production service
+```
+
+## 7. Security & Testing Agent
+
+**File:** `.github/agents/security-testing.agent.md`
+
+**Expertise:** OWASP Top 10, API security testing, JWT, XSS, SQL injection, container scanning, network security
+
+**Use cases:** Security audits, penetration testing, vulnerability scanning, compliance checks
+
+**Example prompts:**
+```
+@security-testing Audit this API endpoint for OWASP Top 10 vulnerabilities
+@security-testing Scan this Docker image for known CVEs
+@security-testing Review this authentication implementation for flaws
+```
+
+## 8. Code Quality & Review Agent
+
+**File:** `.github/agents/code-quality-review.agent.md`
+
+**Expertise:** Code review, TDD, debugging, domain modeling, refactoring, architecture design
+
+**Use cases:** PR reviews, test-driven development, code quality analysis, domain modeling
+
+**Example prompts:**
+```
+@code-quality-review Review this PR for correctness and maintainability
+@code-quality-review Help me write tests first for this feature
+@code-quality-review Diagnose this performance regression
+```
+
+## 9. AI & LLM Development Agent
+
+**File:** `.github/agents/ai-llm-development.agent.md`
+
+**Expertise:** Claude API, Gemini API, MCP protocol, skill creation, transformers, prompt engineering, RAG
+
+**Use cases:** LLM integration, MCP server development, prompt design, AI agent workflows
+
+**Example prompts:**
+```
+@ai-llm-development Build an MCP server for a custom API
+@ai-llm-development Design a RAG pipeline with vector search
+@ai-llm-development Create a Claude skill definition
+```
+
+## 10. Documentation & Design Tools Agent
+
+**File:** `.github/agents/documentation-design-tools.agent.md`
+
+**Expertise:** Figma API, document generation (docx, pptx, xlsx, pdf), brand design, theme creation
+
+**Use cases:** Auto-generating documents, creating presentations, Figma plugin development, design systems
+
+**Example prompts:**
+```
+@documentation-design-tools Generate a PDF report from this data
+@documentation-design-tools Create a branded presentation deck
+@documentation-design-tools Design a Figma component system
+```
+
+## 11. Git & Workflow Agent
+
+**File:** `.github/agents/git-workflow-automation.agent.md`
+
+**Expertise:** Git workflow, conventional commits, CI/CD, code review, shipping, branching strategies
+
+**Use cases:** Git operations, commit message generation, release management, workflow automation
+
+**Example prompts:**
+```
+@git-workflow-automation Generate a conventional commit message for these changes
+@git-workflow-automation Set up a release workflow with changelog generation
+@git-workflow-automation Design a branching strategy for our team
+```
+
+## 12. Browser & Debugging Agent
+
+**File:** `.github/agents/browser-debugging.agent.md`
+
+**Expertise:** Playwright, web testing, Sentry error tracking, debugging, browser automation
+
+**Use cases:** E2E testing, bug reproduction, performance debugging, error monitoring
+
+**Example prompts:**
+```
+@browser-debugging Write a Playwright test for this login flow
+@browser-debugging Debug this Sentry error stack trace
+@browser-debugging Capture a screenshot of this UI state
+```
+
+## 13. Developer Productivity Agent
+
+**File:** `.github/agents/developer-productivity.agent.md`
+
+**Expertise:** Obsidian, markdown, note-taking, teaching, diagnostics, handoff, goal setting
+
+**Use cases:** Documentation workflows, knowledge management, diagnostic analysis, session handoffs
+
+**Example prompts:**
+```
+@developer-productivity Set up an Obsidian vault for project documentation
+@developer-productivity Create a handoff document for this session
+@developer-productivity Define measurable goals for this project
+```
