@@ -145,6 +145,40 @@ This file instructs GitHub Copilot on how to behave when working with this proje
 - Interfaces: prefix with `I` (e.g., `IUserService`)
 - Files: PascalCase matching type name
 
+## Code Style — Rust
+
+- Follow Rust 2024 Edition conventions and `rustfmt` defaults.
+- Use `cargo clippy` with default lints; address all warnings.
+- Use `Result<T, E>` for fallible operations; use `anyhow::Error` for application-level errors, `thiserror` for library errors.
+- Use `Option<T>` for nullable values; avoid `null`/`None` punning.
+- Prefer `match` expressions over `if let` chains for exhaustive pattern matching.
+- Use `impl Trait` for simple generic parameters; explicit generics for complex APIs.
+- Use `#[derive(Debug, Clone, PartialEq)]` for data types.
+- Use `&str` for function parameters that need string slices; `String` for owned strings.
+- Use `Arc<Mutex<T>>` or `Arc<RwLock<T>>` for shared mutable state; prefer `tokio::sync` for async.
+- Use `tokio` as the async runtime; use `async fn` for I/O-bound operations.
+- Use `serde` for serialization/deserialization with `#[derive(Serialize, Deserialize)]`.
+- Use `thiserror` for defining custom error types with `#[derive(Error)]`.
+- Use `tracing` for structured logging: `tracing::info!`, `tracing::error!`.
+- Use `rayon` for CPU-bound parallel work.
+- Use `criterion` for benchmarks.
+- Use `rstest` for test fixtures and parameterized tests.
+- Prefer iterator combinators (`map`, `filter`, `fold`) over explicit loops.
+- Use `clap` for CLI argument parsing.
+- Use `reqwest` for HTTP clients; `axum` or `actix-web` for HTTP servers.
+- Use `sqlx` for compile-time checked SQL queries; `diesel` for ORM-style access.
+- Use `const` and `const fn` for compile-time constants.
+- Document all public items with `///` doc comments; include panic, error, and safety sections.
+- Use `unsafe` only when absolutely necessary; document safety invariants.
+
+### Naming Conventions
+- Types (structs, enums, traits): PascalCase
+- Functions, methods, variables: snake_case
+- Constants: UPPER_SNAKE_CASE or SCREAMING_SNAKE_CASE
+- Macro names: snake_case with `!` suffix
+- Files: snake_case.rs
+- Test modules: `mod tests` with `#[cfg(test)]`
+
 ## Code Style — Go
 
 - Follow standard `gofmt` formatting (no tabs, 8-space tabs — let `gofmt` handle it).
@@ -291,6 +325,65 @@ This file instructs GitHub Copilot on how to behave when working with this proje
 - Ensure linting and type checking pass before requesting review.
 - Do not merge without at least one approval.
 - Use squash merge or rebase merge; avoid merge commits.
+
+## AI & LLM Integration Conventions
+
+- Use official SDKs for LLM APIs: `openai` (Python), `@openai/openai` (TS), `anthropic` (Python/TS), `@google/generative-ai`.
+- Prefer `async`/`await` for all LLM API calls; implement streaming for real-time responses.
+- Use structured prompts with clear system messages, few-shot examples, and output formatting instructions.
+- Implement retry logic with exponential backoff for LLM API calls (use `tenacity` in Python, `p-retry` in JS).
+- Validate LLM outputs with schema validation (`zod`, `pydantic`) before using in business logic.
+- Implement prompt injection prevention: input sanitization, system prompt hardening, output filtering.
+- Use vector databases (Pinecone, Weaviate, Qdrant, Chroma) for RAG (Retrieval Augmented Generation).
+- Use embeddings API for text vectorization: `text-embedding-3-small` (OpenAI), `embed-multilingual-v2.0` (Cohere).
+- Implement rate limiting and cost tracking per user/session for LLM usage.
+- Use MCP (Model Context Protocol) for connecting LLMs with external tools and data sources.
+- Log all LLM interactions (prompt, response, latency, cost) for monitoring and debugging.
+- Implement content filtering and moderation for user-facing LLM outputs.
+- Use guardrails frameworks (NVIDIA NeMo Guardrails, Guardrails AI) for safety constraints.
+- Cache LLM responses for identical or semantically similar queries (semantic caching with embeddings).
+
+## Mobile Development Conventions
+
+- Use React Native (Expo) for cross-platform mobile apps; Flutter for pixel-perfect UI needs.
+- Use TypeScript for React Native; Dart for Flutter.
+- Use Expo Router or React Navigation for navigation in React Native.
+- Use Zustand or Redux Toolkit for state management in React Native; Riverpod or Bloc in Flutter.
+- Use NativeWind (Tailwind for React Native) or StyleSheet for styling; Material Design 3 in Flutter.
+- Implement code sharing strategies: feature-based architecture, shared business logic in monorepo.
+- Use platform-specific files (`.ios.tsx`, `.android.tsx`) when platform differences require it.
+- Implement offline-first with WatermelonDB (React Native) or Drift (Flutter).
+- Use `expo-secure-store` (iOS Keychain, Android Keystore) for sensitive data storage.
+- Implement push notifications with Expo Notifications or Firebase Cloud Messaging.
+- Use biometric authentication (Face ID, Touch ID, fingerprint) with `expo-local-authentication`.
+- Optimize images: resize on upload, use WebP format, implement progressive loading.
+- Use FlashList (React Native) for performant list rendering with windowing.
+- Implement deep linking for universal links and custom URL schemes.
+- Use EAS Build for React Native CI/CD; Codemagic or Bitrise for Flutter.
+- Follow OWASP Mobile Top 10 security guidelines.
+- Target 60fps UI: avoid jank, use `InteractionManager.runAfterInteractions` for heavy work.
+
+## Accessibility Conventions (a11y)
+
+- Follow WCAG 2.1 AA standards as minimum; aim for AAA where feasible.
+- Use semantic HTML elements: `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<footer>`.
+- All images must have meaningful `alt` text; decorative images need `alt=""`.
+- Ensure proper heading hierarchy: `<h1>` through `<h6>` without skipping levels.
+- All form inputs must have associated `<label>` elements.
+- Use `aria-label`, `aria-describedby`, `aria-expanded`, `aria-controls` appropriately.
+- Implement skip navigation links: `<a href="#main-content">Skip to main content</a>`.
+- Ensure keyboard accessibility: all interactive elements must be reachable and operable via keyboard.
+- Maintain focus order: use `tabindex="0"` for interactive elements, `tabindex="-1"` for focusable via script.
+- Implement focus trapping for modals and dialogs; return focus when closed.
+- Use visible focus indicators (never `outline: none` without providing alternative).
+- Ensure color contrast: 4.5:1 for normal text, 3:1 for large text (AA standard).
+- Don't rely solely on color to convey information; use icons, patterns, and text labels.
+- Support text resizing up to 200% without loss of content or functionality.
+- Respect `prefers-reduced-motion` for animations: disable or reduce non-essential motion.
+- Use `role="alert"` for dynamic error messages; `aria-live="polite"` for content updates.
+- Test with screen readers (VoiceOver, NVDA, JAWS) and automated tools (axe, Lighthouse).
+- Use `axe-core` in CI/CD to prevent accessibility regressions.
+- Ensure touch targets are at least 44x44px on mobile devices.
 
 ## Performance Considerations
 
