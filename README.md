@@ -5,7 +5,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Adhamxon/copilot-skills/pulls)
 [![Maintained](https://img.shields.io/badge/maintained-yes-success)](https://github.com/Adhamxon/copilot-skills)
 
-A power-user collection of GitHub Copilot custom instructions, specialized agents, and chat prompts to supercharge your AI-assisted development workflow.
+A **power-user collection of GitHub Copilot custom instructions** — **3.4 MB of comprehensive guidance** across **384 skills** with **13 specialized agents** for every development domain. Supercharge your Copilot with expert knowledge from architecture to security, project management to mobile development.
 
 > **Created by Adkhamkhon** — based on [opencode-ultimate-skills](https://github.com/Adhamxon/opencode-ultimate-skills)
 
@@ -23,21 +23,37 @@ The file is **repository-scoped** — different repos can have different instruc
 
 ## What's Included
 
-### Custom Instructions (`341 lines`)
-Structured guidance covering **5 languages** (TypeScript, Python, Java, C#, Go) with rules for:
-- Code style & naming conventions
-- Testing (AAA pattern, per-language frameworks)
-- Architecture (clean/hexagonal, CQRS, repository pattern)
-- Security (OWASP Top 10, input validation, secrets management)
-- API design (RESTful conventions, versioning, pagination)
-- Performance, database, Git, and PR conventions
+### Custom Instructions (`3.4 MB`, `384 skills`)
+Comprehensive guidance covering **all development domains** including:
+- **Architecture & Design**: Clean Architecture, DDD, system design, refactoring, team topologies
+- **Frontend Development**: TypeScript, Three.js, Tailwind, SvelteKit, tRPC, TanStack Query, Zustand
+- **Backend & API**: API design, Supabase, message queues, vector databases
+- **Mobile & iOS**: Swift, SwiftUI, iOS patterns, concurrency, performance
+- **Project Management**: OKRs, PRDs, user stories, sprint planning, GTM strategy, pricing, market sizing
+- **DevOps & Cloud**: GCP (all services), Docker, Kubernetes, CI/CD automation
+- **Security & Testing**: OWASP Top 10, API security, JWT, XSS, SQL injection, container scanning
+- **Code Quality & Review**: Code review, TDD, debugging, domain modeling
+- **AI & LLM**: Claude API, Gemini API, MCP, skill creation, transformers, training
+- **Documentation & Design**: Figma, docs, spreadsheets, slides, brand design
+- **Git & Workflow**: Git workflow, conventional commits, CI/CD, shipping
+- **Developer Productivity**: Obsidian, teaching, diagnostics, handoff
 
-### 3 Specialized Copilot Agents
-| Agent | File | Chat Command |
-|-------|------|-------------|
-| **Code Reviewer** | `.github/agents/code-reviewer.agent.md` | `@code-reviewer Review this PR` |
-| **TDD Developer** | `.github/agents/tdd-developer.agent.md` | `@tdd-developer Help me write tests first` |
-| **Security Auditor** | `.github/agents/security-auditor.agent.md` | `@security-auditor Audit this endpoint` |
+### 13 Specialized Copilot Agents
+| Agent | File |
+|-------|------|
+| **Architecture & Design** | `architecture-design.agent.md` |
+| **Frontend Development** | `frontend-development.agent.md` |
+| **Backend & API** | `backend-api-development.agent.md` |
+| **Mobile & iOS** | `mobile-ios-development.agent.md` |
+| **Project Management** | `project-management-product.agent.md` |
+| **DevOps & Cloud** | `devops-cloud.agent.md` |
+| **Security & Testing** | `security-testing.agent.md` |
+| **Code Quality & Review** | `code-quality-review.agent.md` |
+| **AI & LLM Development** | `ai-llm-development.agent.md` |
+| **Documentation & Tools** | `documentation-design-tools.agent.md` |
+| **Git & Workflow** | `git-workflow-automation.agent.md` |
+| **Browser & Debugging** | `browser-debugging.agent.md` |
+| **Developer Productivity** | `developer-productivity.agent.md` |
 
 ### Copilot Chat Commands
 Beyond agents, these slash commands work with instructions in place:
